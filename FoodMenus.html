@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu Scheduler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .sidebar {
+            width: 25%;
+            background-color: #f7f7f7;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
+            border-right: 1px solid #ccc;
+        }
+        .category {
+            margin-bottom: 15px;
+        }
+        .category-header {
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+        .food-items {
+            display: none;
+            margin-left: 20px;
+        }
+        .food-item {
+            margin: 5px 0;
+            cursor: move;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .calendar {
+            width: 75%;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            cursor: pointer;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+        }
+        td:hover .delete-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+                        <div class="category">
+                <div class="category-header">Breakfast</div>
+                <div class="food-items" id="breakfast-items">
+                    <div class="food-item" data-category="breakfast" draggable="true">Misal Pav</div>
+<div class="food-item" data-category="breakfast" draggable="true">Usal Pav</div>
+<div class="food-item" data-category="breakfast" draggable="true">Kolhapuri Misal</div>
+<div class="food-item" data-category="breakfast" draggable="true">Matki Misal</div>
+<div class="food-item" data-category="breakfast" draggable="true">Mix Misal</div>
+<div class="food-item" data-category="breakfast" draggable="true">Besan Chilla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Moong Dal Chilla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Rawa Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Kanchipuram Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Palak Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Carrot Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Podi Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Paniyaram</div>
+<div class="food-item" data-category="breakfast" draggable="true">Peanut Poha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Kanda Poha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Masala Poha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Potato Poha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Wangi Poha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Hariyali Poha In Green Masala</div>
+<div class="food-item" data-category="breakfast" draggable="true">Medu Wada</div>
+<div class="food-item" data-category="breakfast" draggable="true">Rasam Wada</div>
+<div class="food-item" data-category="breakfast" draggable="true">Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Tomato Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Peas Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Andra Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Lapsi Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Bread Upma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Pongal</div>
+<div class="food-item" data-category="breakfast" draggable="true">Dry Fruit Sheera</div>
+<div class="food-item" data-category="breakfast" draggable="true">Plain Sheera</div>
+<div class="food-item" data-category="breakfast" draggable="true">Mango Sheera</div>
+<div class="food-item" data-category="breakfast" draggable="true">Pineapple Sheera</div>
+<div class="food-item" data-category="breakfast" draggable="true">Tutti Fruti Sheera</div>
+<div class="food-item" data-category="breakfast" draggable="true">Onion Uttapam</div>
+<div class="food-item" data-category="breakfast" draggable="true">Masala Uttapam</div>
+<div class="food-item" data-category="breakfast" draggable="true">Paneer Uttapam</div>
+<div class="food-item" data-category="breakfast" draggable="true">Mix Veg Uttapam</div>
+<div class="food-item" data-category="breakfast" draggable="true">Set Dosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Neer Dosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Palak Moong Dal Dosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Paneer Mix Veg Dosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Aloo Gobi Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Aloo Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Aloo Methi Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Aloo Peas Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Paneer Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Paneer Veg Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Muli Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Aloo Mutter Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Mix Veg Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Gobhi Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Methi Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Palak Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Spinach & Paneer Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Cabbage & Paneer Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Beetroot Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Dal Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Sabudana Wada</div>
+<div class="food-item" data-category="breakfast" draggable="true">Subudana Khichadi</div>
+<div class="food-item" data-category="breakfast" draggable="true">Bread Pakoda</div>
+<div class="food-item" data-category="breakfast" draggable="true">Bread Roll</div>
+<div class="food-item" data-category="breakfast" draggable="true">Puri Aloo Bhaji</div>
+<div class="food-item" data-category="breakfast" draggable="true">Chole Puri</div>
+<div class="food-item" data-category="breakfast" draggable="true">Chole Bhature</div>
+<div class="food-item" data-category="breakfast" draggable="true">Puri With Kala Chana</div>
+<div class="food-item" data-category="breakfast" draggable="true">White Dhokla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Rawa Dhokla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Masala Bread Toast</div>
+<div class="food-item" data-category="breakfast" draggable="true">Spicy Potato S/W</div>
+
+                </div>
+            </div>
+
+
+            <!-- Snacks Veg -->
+            <div class="category">
+                <div class="category-header">Snacks Veg</div>
+                <div class="food-items" id="snacks-items">
+                    <div class="food-item" data-category="breakfast" draggable="true">Methi Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Set Dosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Onion Uttapam</div>
+<div class="food-item" data-category="breakfast" draggable="true">Besan Chilla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Alu Wadi</div>
+<div class="food-item" data-category="breakfast" draggable="true">Kothimir Wadi</div>
+<div class="food-item" data-category="breakfast" draggable="true">Thepla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Coin Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Masala Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Tawa Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Schezwan Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Idli Fry</div>
+<div class="food-item" data-category="breakfast" draggable="true">Idli Chilli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Masala Coin Idli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Harabhara Kabab</div>
+<div class="food-item" data-category="breakfast" draggable="true">Ragda Pattice</div>
+<div class="food-item" data-category="breakfast" draggable="true">Bengali Pattice</div>
+<div class="food-item" data-category="breakfast" draggable="true">Chole Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Ragda Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Kachori Chaat</div>
+<div class="food-item" data-category="breakfast" draggable="true">Samosa Chaat</div>
+<div class="food-item" data-category="breakfast" draggable="true">Bread Pakoda</div>
+<div class="food-item" data-category="breakfast" draggable="true">Patra</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Cuttlet</div>
+<div class="food-item" data-category="breakfast" draggable="true">Chinese Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Buns Kurma</div>
+<div class="food-item" data-category="breakfast" draggable="true">Chole Tikki</div>
+<div class="food-item" data-category="breakfast" draggable="true">Masala Pav</div>
+<div class="food-item" data-category="breakfast" draggable="true">Corn Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Punjabi Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Cocktail Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Chinese Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Patti Samosa</div>
+<div class="food-item" data-category="breakfast" draggable="true">Khaman Dhokla</div>
+<div class="food-item" data-category="breakfast" draggable="true">White Dhokla</div>
+<div class="food-item" data-category="breakfast" draggable="true">S/W Dhokla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Tiranga Dhokla</div>
+<div class="food-item" data-category="breakfast" draggable="true">Khandavi</div>
+<div class="food-item" data-category="breakfast" draggable="true">Sweet Kachori</div>
+<div class="food-item" data-category="breakfast" draggable="true">Dahi Kachori</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Manchurian Dry</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Shanghai Dry</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg 65</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Burger</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Frankie</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Manchurian Roll</div>
+<div class="food-item" data-category="breakfast" draggable="true">Veg Hot Dog Roll</div>
+<div class="food-item" data-category="breakfast" draggable="true">Mix Bhajia</div>
+<div class="food-item" data-category="breakfast" draggable="true">Fried Onion Ring</div>
+<div class="food-item" data-category="breakfast" draggable="true">Dabeli</div>
+<div class="food-item" data-category="breakfast" draggable="true">Dahi Wada</div>
+<div class="food-item" data-category="breakfast" draggable="true">Bread Roll</div>
+<div class="food-item" data-category="breakfast" draggable="true">Wada Pav</div>
+<div class="food-item" data-category="breakfast" draggable="true">Sk Pakoda</div>
+<div class="food-item" data-category="breakfast" draggable="true">Corn Cheese Ball</div>
+<div class="food-item" data-category="breakfast" draggable="true">Batata/Onion Bhajiya</div>
+<div class="food-item" data-category="breakfast" draggable="true">Gobi Paratha</div>
+<div class="food-item" data-category="breakfast" draggable="true">Tikki</div>
+<div class="food-item" data-category="breakfast" draggable="true">Methi Thepla Wrap</div>
+<div class="food-item" data-category="breakfast" draggable="true">Khakra</div>
+<div class="food-item" data-category="breakfast" draggable="true">Khakra With Sprouted Moong</div>
+<div class="food-item" data-category="breakfast" draggable="true">Pav Bhaji</div>
+<div class="food-item" data-category="breakfast" draggable="true">Moong Dala Pakoda</div>
+<div class="food-item" data-category="breakfast" draggable="true">Methi Pakoda</div>
+
+                </div>
+            </div>
+
+            <!-- Salads -->
+            <div class="category">
+                <div class="category-header">Salads</div>
+                <div class="food-items" id="salads-items">
+                    <div class="food-item" data-category="salad" draggable="true">Green Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Cucumber Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Toss Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Khimchi Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Noodles Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Pasta Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Cafe Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Tandoori Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Potato Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Carrot Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Sprouted Moong Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Sambariya Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Kachumber Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Beetroot Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Bean Sprout</div>
+<div class="food-item" data-category="salad" draggable="true">Corn Veg Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Chana Salad</div>
+<div class="food-item" data-category="salad" draggable="true">Tomato Salad With Mint Dressing</div>
+
+                </div>
+            </div>
+
+            <!-- Raitas -->
+            <div class="category">
+                <div class="category-header">Raitas</div>
+                <div class="food-items" id="raitas-items">
+                    <div class="food-item" data-category="raita" draggable="true">Boondi Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Veg Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Onion Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Cucumber Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Carrot Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Mix Veggie Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Palak Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Beetroot Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Plain Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Aloo Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Jeera Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Mint Raita</div>
+<div class="food-item" data-category="raita" draggable="true">Anardana Raita</div>
+
+                </div>
+            </div>
+
+            <!-- Thali Rice -->
+            <div class="category">
+                <div class="category-header">Thali Rice</div>
+                <div class="food-items" id="thali-rice-items">
+                    <div class="food-item" data-category="rice" draggable="true">Steamed Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Tadka Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Coriander Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Mint Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Jeera Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Jeera Mutter Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Lemon Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Ghee Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Corn Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Tamarind Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Coconut Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Peas Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Tomato Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Carrot Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Turmeric Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Palak Rice</div>
+
+                </div>
+            </div>
+
+            <!-- Special Rice Preparation/Veg & Non-Veg Biryani -->
+            <div class="category">
+                <div class="category-header">Special Rice Preparation/Veg & Non-Veg Biryani</div>
+                <div class="food-items" id="special-rice-items">
+                    <div class="food-item" data-category="rice" draggable="true">Veg Tawa Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Mushroom Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Capsicum Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Rajma Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Yakhni Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Methi Aloo Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Pudina Mutter Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Veg Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Pulihora Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Aloo Dum Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Paneer Veg Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Egg Fried Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Egg Dum Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Chicken Dum Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Chicken Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Chicken Fry Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Chicken Tikka Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Chicken Chettinad Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Egg Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Chicken Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Soya Bean Biryani</div>
+<div class="food-item" data-category="rice" draggable="true">Tehri Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Methi Mutter Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Kashmiri Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Paneer Veg Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Corn Fried Rice</div>
+<div class="food-item" data-category="rice" draggable="true">Chanadal Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Veg Peas Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Masala Bhaat</div>
+<div class="food-item" data-category="rice" draggable="true">Bengali Khichadi</div>
+<div class="food-item" data-category="rice" draggable="true">Beetroot Rice Pulao</div>
+<div class="food-item" data-category="rice" draggable="true">Veg Peanut Rice</div>
+
+                </div>
+            </div>
+
+            <!-- Dal Preparation -->
+            <div class="category">
+                <div class="category-header">Dal Preparation</div>
+                <div class="food-items" id="dal-items">
+                    <div class="food-item" data-category="dal" draggable="true">Dal Bhukara</div>
+<div class="food-item" data-category="dal" draggable="true">Punjabi Kadi</div>
+<div class="food-item" data-category="dal" draggable="true">Gujrati Kadhi</div>
+<div class="food-item" data-category="dal" draggable="true">Dahi Kadhi Plain</div>
+<div class="food-item" data-category="dal" draggable="true">Moong Dal Fry</div>
+<div class="food-item" data-category="dal" draggable="true">Pumpkin Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Dhaba Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Maa Ki Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Pancharatna Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Chironji Ki Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Amti Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Panchamela Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Tomato Rasam</div>
+<div class="food-item" data-category="dal" draggable="true">Kokam Rasam</div>
+<div class="food-item" data-category="dal" draggable="true">Sambar</div>
+<div class="food-item" data-category="dal" draggable="true">Langarwali Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Sindhi Tidli Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Fry</div>
+<div class="food-item" data-category="dal" draggable="true">Rajma Masala</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Tadka</div>
+<div class="food-item" data-category="dal" draggable="true">Tadka Dal Bengali Style</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Lasooni</div>
+<div class="food-item" data-category="dal" draggable="true">Methi Masoor Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Masoor Dal Tadka</div>
+<div class="food-item" data-category="dal" draggable="true">Masala Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Toor Dal Fry</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Varan</div>
+<div class="food-item" data-category="dal" draggable="true">Rajasthani Tikha Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Green Moong Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Punpkin Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Methiche Varan</div>
+<div class="food-item" data-category="dal" draggable="true">Khatti Meethi Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Tomato Pappu</div>
+<div class="food-item" data-category="dal" draggable="true">Hariyali Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Banjari</div>
+<div class="food-item" data-category="dal" draggable="true">Mamidikaya Pappu (Seasonal)</div>
+<div class="food-item" data-category="dal" draggable="true">Tangy Green Moong Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Sorakkai Kootu</div>
+<div class="food-item" data-category="dal" draggable="true">Methi Leaves Sambar</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Kalai</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Mughlai</div>
+<div class="food-item" data-category="dal" draggable="true">Cabbage Kootu</div>
+<div class="food-item" data-category="dal" draggable="true">Black Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Makhani</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Palak</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Methi</div>
+<div class="food-item" data-category="dal" draggable="true">Rajashthani Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Gujrati Dal</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Kolhapuri</div>
+<div class="food-item" data-category="dal" draggable="true">Dal Bukhara</div>
+
+                </div>
+            </div>
+
+            <!-- Vegetable Preparation (Dry) -->
+            <div class="category">
+                <div class="category-header">Vegetable Preparation (Dry)</div>
+                <div class="food-items" id="veg-dry-items">
+                    <div class="food-item" data-category="vegetable" draggable="true">Suran Chana Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Bhareli Baigan</div>
+<div class="food-item" data-category="vegetable" draggable="true">Beans Thoran</div>
+<div class="food-item" data-category="vegetable" draggable="true">Lalmat Lobiya Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Gobhi Mutter</div>
+<div class="food-item" data-category="vegetable" draggable="true">Beans Curry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Pumpkin Bhaji</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Bhindi Sukka</div>
+<div class="food-item" data-category="vegetable" draggable="true">Mix Veg Tawa Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Posto</div>
+<div class="food-item" data-category="vegetable" draggable="true">Dhoodhi Chana Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Bhindi Do Pyaza</div>
+<div class="food-item" data-category="vegetable" draggable="true">Crispy Aloo</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Parwar</div>
+<div class="food-item" data-category="vegetable" draggable="true">Turiya Chana</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Chokha</div>
+<div class="food-item" data-category="vegetable" draggable="true">Shimla Mirch Aloo</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Methi</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Palak</div>
+<div class="food-item" data-category="vegetable" draggable="true">Masala Aloo Palak</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Mutter</div>
+<div class="food-item" data-category="vegetable" draggable="true">Semi Dry Mutter Aloo Ki Sabji</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Sukkha</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Jeera</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Baingan</div>
+<div class="food-item" data-category="vegetable" draggable="true">Bhindi Capsicum Masala</div>
+<div class="food-item" data-category="vegetable" draggable="true">Mix Pulses Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Soybean Sukka</div>
+<div class="food-item" data-category="vegetable" draggable="true">Soybean Kheema Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Tendli</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Tamatar</div>
+<div class="food-item" data-category="vegetable" draggable="true">Cabbage Poriyal</div>
+<div class="food-item" data-category="vegetable" draggable="true">Beetroot Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Beetroot Poriyal</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Potol</div>
+<div class="food-item" data-category="vegetable" draggable="true">Cabbage Masala Dry</div>
+<div class="food-item" data-category="vegetable" draggable="true">Tawa Veg</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Lalmath</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Ghobhi (Cauliflower)</div>
+<div class="food-item" data-category="vegetable" draggable="true">Ghobhi Tomato</div>
+<div class="food-item" data-category="vegetable" draggable="true">Cabbage Kofta</div>
+<div class="food-item" data-category="vegetable" draggable="true">Muttakos Poriyal</div>
+<div class="food-item" data-category="vegetable" draggable="true">Dry Chana Masala</div>
+<div class="food-item" data-category="vegetable" draggable="true">Sundal</div>
+<div class="food-item" data-category="vegetable" draggable="true">Subhz Handi</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Baigan Chokha</div>
+<div class="food-item" data-category="vegetable" draggable="true">Kaddu Ki Sabji</div>
+<div class="food-item" data-category="vegetable" draggable="true">Karela Sabji</div>
+<div class="food-item" data-category="vegetable" draggable="true">Aloo Cabbage</div>
+<div class="food-item" data-category="vegetable" draggable="true">Baigan Bharta</div>
+
+                </div>
+            </div>
+
+            <!-- Vegetable Preparation (Gravy) -->
+            <div class="category">
+                <div class="category-header">Vegetable Preparation (Gravy)</div>
+                <div class="food-items" id="veg-gravy-items">
+                    <div class="food-item" data-category="curry" draggable="true">Veg Do Pyaaza</div>
+<div class="food-item" data-category="curry" draggable="true">Chickpea Tikka Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Malai Kofta Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Kaddu Aloo Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Methi Malai Mutter</div>
+<div class="food-item" data-category="curry" draggable="true">Navratna Korma</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Kohlapuri</div>
+<div class="food-item" data-category="curry" draggable="true">Karela Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Hyderabadi</div>
+<div class="food-item" data-category="curry" draggable="true">Vazzhakai Fry Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Kadhai</div>
+<div class="food-item" data-category="curry" draggable="true">Chana Saag</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Handi</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Makhanwala</div>
+<div class="food-item" data-category="curry" draggable="true">Katahal Ki Sabji</div>
+<div class="food-item" data-category="curry" draggable="true">Mix Veg Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Punjabi Aloo Mutter</div>
+<div class="food-item" data-category="curry" draggable="true">Chole Punjabi</div>
+<div class="food-item" data-category="curry" draggable="true">Dahi Aloo</div>
+<div class="food-item" data-category="curry" draggable="true">Pindi Chole</div>
+<div class="food-item" data-category="curry" draggable="true">Moong Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Dhaba Style Methi Malai Mutter</div>
+<div class="food-item" data-category="curry" draggable="true">Aloo Baigan Bagara</div>
+<div class="food-item" data-category="curry" draggable="true">Matki Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Lobiya Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Aloo Palak Rassa</div>
+<div class="food-item" data-category="curry" draggable="true">Moong Malvani</div>
+<div class="food-item" data-category="curry" draggable="true">Black Chick Peas Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Valchi Bhirdi</div>
+<div class="food-item" data-category="curry" draggable="true">Lauki Chana Dal</div>
+<div class="food-item" data-category="curry" draggable="true">Gatte Ki Subzi</div>
+<div class="food-item" data-category="curry" draggable="true">Corn Capsicum Masala</div>
+<div class="food-item" data-category="curry" draggable="true">Methi Malai Mutter</div>
+<div class="food-item" data-category="curry" draggable="true">Chole Palak</div>
+<div class="food-item" data-category="curry" draggable="true">Lauki Tamatar Gravy</div>
+<div class="food-item" data-category="curry" draggable="true">Mix Kathal</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Avial</div>
+<div class="food-item" data-category="curry" draggable="true">Mixed Veg Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Chana Saag</div>
+<div class="food-item" data-category="curry" draggable="true">Kadala Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Kuttu Curry</div>
+<div class="food-item" data-category="curry" draggable="true">Sev Tamatari</div>
+<div class="food-item" data-category="curry" draggable="true">Matki Sabji</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Jaipuri</div>
+<div class="food-item" data-category="curry" draggable="true">Veg Jalfrezi</div>
+<div class="food-item" data-category="curry" draggable="true">Pumpkin Curry</div>
+
+                </div>
+            </div>
+
+            <!-- Paneer Preparation -->
+            <div class="category">
+                <div class="category-header">Paneer Preparation</div>
+                <div class="food-items" id="paneer-items">
+                    <div class="food-item" data-category="paneer" draggable="true">Paneer Tikka Masala</div>
+<div class="food-item" data-category="paneer" draggable="true">Dahi Paneer</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Veg Bhurji</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Kesari</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Do Pyaaza</div>
+<div class="food-item" data-category="paneer" draggable="true">Veg Paneer Kofta Curry</div>
+<div class="food-item" data-category="paneer" draggable="true">Lauki Kofta Curry</div>
+<div class="food-item" data-category="paneer" draggable="true">Veg Paneer Rajastani</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Kadhai</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Lababdar</div>
+<div class="food-item" data-category="paneer" draggable="true">Palak Paneer</div>
+<div class="food-item" data-category="paneer" draggable="true">Achari Paneer</div>
+<div class="food-item" data-category="paneer" draggable="true">Mutter Paneer</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Makhanwala</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Handi</div>
+<div class="food-item" data-category="paneer" draggable="true">Paneer Jalfrezi</div>
+
+                </div>
+            </div>
+
+            <!-- Chicken Preparation -->
+            <div class="category">
+                <div class="category-header">Chicken Preparation</div>
+                <div class="food-items" id="chicken-items">
+                    <div class="food-item" data-category="chicken" draggable="true">Chicken Hyderabadi</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Tikka Masala</div>
+<div class="food-item" data-category="chicken" draggable="true">Punjabi Chicken Curry</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Do Pyaaza</div>
+<div class="food-item" data-category="chicken" draggable="true">Dhaba Chicken</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Palak</div>
+<div class="food-item" data-category="chicken" draggable="true">Methi Chicken</div>
+<div class="food-item" data-category="chicken" draggable="true">Hyderabadi Chicken Gravy</div>
+<div class="food-item" data-category="chicken" draggable="true">Kalimiri Chicken</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Makhanwala</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Lasooni</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Stew</div>
+<div class="food-item" data-category="chicken" draggable="true">Kolhapuri Chicken Curry</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Handi</div>
+<div class="food-item" data-category="chicken" draggable="true">Amritsari Chicken Masala</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Kadhai</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Malvani</div>
+<div class="food-item" data-category="chicken" draggable="true">Andhra Chicken Curry</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Kolhapuri</div>
+<div class="food-item" data-category="chicken" draggable="true">Kerala Style Chicken Curry</div>
+<div class="food-item" data-category="chicken" draggable="true">Mangalorian Chicken Curry</div>
+<div class="food-item" data-category="chicken" draggable="true">Butter Chicken</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Hara Pyaaza</div>
+<div class="food-item" data-category="chicken" draggable="true">Chicken Gassi</div>
+
+                </div>
+            </div>
+
+            <!-- Egg Preparation -->
+            <div class="category">
+                <div class="category-header">Egg Preparation</div>
+                <div class="food-items" id="egg-items">
+                    <div class="food-item" data-category="egg" draggable="true">Anda Methi</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Malwani</div>
+<div class="food-item" data-category="egg" draggable="true">Palak Egg Curry</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Hyderabadi</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Tikka Masala</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Curry</div>
+<div class="food-item" data-category="egg" draggable="true">Methi Anda Bhurji Dry</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Tawa Masala</div>
+<div class="food-item" data-category="egg" draggable="true">Fried Egg Masala</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Kerala Curry</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Do Pyaaza</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Masala</div>
+<div class="food-item" data-category="egg" draggable="true">Egg Kadhai</div>
+<div class="food-item" data-category="egg" draggable="true">Tandoori Egg Curry</div>
+
+                </div>
+            </div>
+
+            <!-- Bread Preparation -->
+            <div class="category">
+                <div class="category-header">Bread Preparation</div>
+                <div class="food-items" id="bread-items">
+                    <div class="food-item" data-category="bread" draggable="true">Chapati</div>
+                    <div class="food-item" data-category="bread" draggable="true">Puri(Once a Month)</div>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="category">
+                <div class="category-header">Desserts</div>
+                <div class="food-items" id="desserts-items">
+                    <div class="food-item" data-category="desserts" draggable="true">Jalebi</div>
+<div class="food-item" data-category="desserts" draggable="true">Imarti</div>
+<div class="food-item" data-category="desserts" draggable="true">Malpua</div>
+<div class="food-item" data-category="desserts" draggable="true">Balushai</div>
+<div class="food-item" data-category="desserts" draggable="true">Khaja</div>
+<div class="food-item" data-category="desserts" draggable="true">Boondi</div>
+<div class="food-item" data-category="desserts" draggable="true">Sev Boondi</div>
+<div class="food-item" data-category="desserts" draggable="true">Pineapple Kesari Bhaat</div>
+<div class="food-item" data-category="desserts" draggable="true">Soanpapdi</div>
+<div class="food-item" data-category="desserts" draggable="true">Gulab Jamun</div>
+<div class="food-item" data-category="desserts" draggable="true">Rasgulla</div>
+<div class="food-item" data-category="desserts" draggable="true">Kala Jamun</div>
+<div class="food-item" data-category="desserts" draggable="true">Angoor Gulab Jamun</div>
+<div class="food-item" data-category="desserts" draggable="true">Rawa Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Besan Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Boondi Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Motichur Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Til Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Peanut Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Oats Ladoo</div>
+<div class="food-item" data-category="desserts" draggable="true">Badam Halwa</div>
+<div class="food-item" data-category="desserts" draggable="true">Gajar Halwa</div>
+<div class="food-item" data-category="desserts" draggable="true">Doodhi Halwa</div>
+<div class="food-item" data-category="desserts" draggable="true">Moong Dal Halwa</div>
+<div class="food-item" data-category="desserts" draggable="true">Beet Root Halwa</div>
+<div class="food-item" data-category="desserts" draggable="true">Dry Fruit Halwa</div>
+<div class="food-item" data-category="desserts" draggable="true">Rice Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Lapsi Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Sabudana Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Mango Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Seviyan Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Thandai Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Custard</div>
+<div class="food-item" data-category="desserts" draggable="true">Rice Phirni</div>
+<div class="food-item" data-category="desserts" draggable="true">Rose Phirni</div>
+<div class="food-item" data-category="desserts" draggable="true">Mango Phirni</div>
+<div class="food-item" data-category="desserts" draggable="true">Pineapple Phirni</div>
+<div class="food-item" data-category="desserts" draggable="true">Dry Fruit Phirni</div>
+<div class="food-item" data-category="desserts" draggable="true">Kesar Pista Phirni</div>
+<div class="food-item" data-category="desserts" draggable="true">Sabudana Kheer</div>
+<div class="food-item" data-category="desserts" draggable="true">Moong Dal Payasam</div>
+<div class="food-item" data-category="desserts" draggable="true">Chana Dal Payasam</div>
+<div class="food-item" data-category="desserts" draggable="true">Rice Payasam</div>
+<div class="food-item" data-category="desserts" draggable="true">Ada Payasam</div>
+<div class="food-item" data-category="desserts" draggable="true">Mysore Pak</div>
+<div class="food-item" data-category="desserts" draggable="true">Mohan Thal</div>
+<div class="food-item" data-category="desserts" draggable="true">Mawa Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Sada Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Chocolate Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Coconut Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Mango Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Dry Fruit Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Badam Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Milk Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Khajur Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Mango Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Kesar Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Malai Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Mawa Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Sada Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Chocolate Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Mathura Peda</div>
+<div class="food-item" data-category="desserts" draggable="true">Modak</div>
+<div class="food-item" data-category="desserts" draggable="true">Kaju Roll</div>
+<div class="food-item" data-category="desserts" draggable="true">Tiranga Mawa Burfi</div>
+<div class="food-item" data-category="desserts" draggable="true">Rawa Kesari</div>
+<div class="food-item" data-category="desserts" draggable="true">Dry Fruit Sheera</div>
+<div class="food-item" data-category="desserts" draggable="true">Mango Sheera</div>
+<div class="food-item" data-category="desserts" draggable="true">Plain Sheera</div>
+<div class="food-item" data-category="desserts" draggable="true">Muffin</div>
+<div class="food-item" data-category="desserts" draggable="true">Slice Cake</div>
+<div class="food-item" data-category="desserts" draggable="true">Mawa Cake</div>
+<div class="food-item" data-category="desserts" draggable="true">Tutti Fruti Cake</div>
+
+                </div>
+            </div>
+
+            <!-- Healthy Preparation (Healthy Menu mains) -->
+            <div class="category">
+                <div class="category-header">Healthy Preparation (Healthy Menu mains)</div>
+                <div class="food-items" id="healthy-mains-items">
+                    <div class="food-item" data-category="khichdi" draggable="true">Sprouted Moong Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Palak Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Carrot Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Lapsi Khichadi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Sabudana Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Methi Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Dalia Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Plain Khichdi</div>
+<div class="food-item" data-category="khichdi" draggable="true">Masala Khichdi</div>
+<div class="food-item" data-category="curd-rice" draggable="true">Plain Curd Rice</div>
+<div class="food-item" data-category="curd-rice" draggable="true">Tadka Curd Rice</div>
+<div class="food-item" data-category="upma" draggable="true">Lapsi Upma</div>
+<div class="food-item" data-category="upma" draggable="true">Veg Upma</div>
+<div class="food-item" data-category="upma" draggable="true">Oats Upma</div>
+<div class="food-item" data-category="other" draggable="true">Oats Uttapam</div>
+<div class="food-item" data-category="other" draggable="true">Heathy Brown Bread Sandwich</div>
+<div class="food-item" data-category="other" draggable="true">Amdavadi Khata Meetha Bhaat</div>
+<div class="food-item" data-category="other" draggable="true">Gajar Matar Khichadi</div>
+<div class="food-item" data-category="other" draggable="true">Bisibelle Bhaat</div>
+<div class="food-item" data-category="other" draggable="true">Beetroot Pulao</div>
+<div class="food-item" data-category="other" draggable="true">Sambar Rice</div>
+<div class="food-item" data-category="other" draggable="true">Palak Poori</div>
+<div class="food-item" data-category="other" draggable="true">Instant Wheat Dosa</div>
+<div class="food-item" data-category="other" draggable="true">Spinach & Mushroom Omellete</div>
+
+                </div>
+            </div>
+
+            <!-- Healthy Preparation (Healthy Menu starter) -->
+            <div class="category">
+                <div class="category-header">Healthy Preparation (Healthy Menu starter)</div>
+                <div class="food-items" id="healthy-starter-items">
+                    <div class="food-item" data-category="idli" draggable="true">Palak Idli</div>
+<div class="food-item" data-category="idli" draggable="true">Ragi Idli</div>
+<div class="food-item" data-category="idli" draggable="true">Veg Idli</div>
+<div class="food-item" data-category="idli" draggable="true">Oats Idli</div>
+
+<div class="food-item" data-category="sandwich" draggable="true">Heathy Brown Bread Sandwich</div>
+
+<div class="food-item" data-category="uttapam" draggable="true">Mini Uttapam</div>
+
+<div class="food-item" data-category="chilla" draggable="true">Beetroot Chilla</div>
+<div class="food-item" data-category="chilla" draggable="true">Oats Chilla</div>
+<div class="food-item" data-category="dhokla" draggable="true">Oats Dhokla</div>
+<div class="food-item" data-category="chilla" draggable="true">Moong Dal Chilla</div>
+
+<div class="food-item" data-category="dosa" draggable="true">Ragi Set Dosa</div>
+<div class="food-item" data-category="dosa" draggable="true">Veg Set Dosa</div>
+
+<div class="food-item" data-category="sandwich" draggable="true">Mix Veg & Corn Mini S/W</div>
+
+                </div>
+            </div>
+
+            <!-- Healthy Preparation (Healthy Menu Soup) -->
+            <div class="category">
+                <div class="category-header">Healthy Preparation (Healthy Menu Soup)</div>
+                <div class="food-items" id="healthy-soup-items">
+                    <div class="food-item" data-category="soup" draggable="true">Veg Broth</div>
+<div class="food-item" data-category="soup" draggable="true">Cream Of Mushroom</div>
+<div class="food-item" data-category="soup" draggable="true">Spinach Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Roasted Pumpkin Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Cream Of Broccoli</div>
+<div class="food-item" data-category="soup" draggable="true">Veg Clear Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Hot & Sour</div>
+<div class="food-item" data-category="soup" draggable="true">Veg Manchow</div>
+<div class="food-item" data-category="soup" draggable="true">Lemon Coriander Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Tomato Dhania Ka Sorba</div>
+<div class="food-item" data-category="soup" draggable="true">Basil And Tomato Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Minestrone</div>
+<div class="food-item" data-category="soup" draggable="true">Mulligatawny</div>
+<div class="food-item" data-category="soup" draggable="true">Black Bean Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Sweet Corn Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Moong Dal Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Chinese Veg Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Tom Yum Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Moong Soup (Jain)</div>
+<div class="food-item" data-category="soup" draggable="true">Tomato Soup (Jain)</div>
+<div class="food-item" data-category="soup" draggable="true">Carrot Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Lentil Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Palak Shorba</div>
+<div class="food-item" data-category="soup" draggable="true">Carrot & Bottlegourd Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Spinach & Mint Soup</div>
+<div class="food-item" data-category="soup" draggable="true">Fresh Green Peas Soup</div>
+
+                </div>
+            </div>
+
+            <!-- Chinese Preparation -->
+            <div class="category">
+                <div class="category-header">Chinese Preparation</div>
+                <div class="food-items" id="chinese-items">
+                    <div class="food-item" data-category="fried-rice" draggable="true">Veg Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Veg Schezwan Fried Rice</div>
+<div class="food-item" data-category="noodles" draggable="true">Veg Hakka Noodles</div>
+<div class="food-item" data-category="noodles" draggable="true">Veg Schezwan Noodles</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Hong Kong Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Mushroom Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Veg Singapore Combination Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Paneer Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Egg Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Egg Schezwan Fried Rice</div>
+<div class="food-item" data-category="noodles" draggable="true">Egg Hakka Noodles</div>
+<div class="food-item" data-category="noodles" draggable="true">Egg Schezwan Noodles</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Hong Kong Fried Rice with Egg or Chicken</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Chicken Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Chicken Schezwan Fried Rice</div>
+<div class="food-item" data-category="fried-rice" draggable="true">Chicken Singapore Combination Rice</div>
+<div class="food-item" data-category="noodles" draggable="true">Chicken Hakka Noodles</div>
+<div class="food-item" data-category="noodles" draggable="true">Chicken Schezwan Noodles</div>
+
+                </div>
+            </div>
+
+            <!-- Fasting Meal -->
+            <div class="category">
+                <div class="category-header">Fasting Meal</div>
+                <div class="food-items" id="fasting-meal-items">
+                    <div class="food-item" data-category="fasting" draggable="true">Upwas Kachori</div>
+<div class="food-item" data-category="fasting" draggable="true">Sabudana Wada with Curd</div>
+<div class="food-item" data-category="fasting" draggable="true">Vrat Fry Aloo Bhaji with Curd</div>
+<div class="food-item" data-category="fasting" draggable="true">Sabudana Khichdi With Curd</div>
+<div class="food-item" data-category="fasting" draggable="true">Ratalu Cutlet</div>
+<div class="food-item" data-category="fasting" draggable="true">Kaccha Kela Cutlet</div>
+<div class="food-item" data-category="lassi" draggable="true">Dry Fruit Lassi</div>
+<div class="food-item" data-category="lassi" draggable="true">Sweet Lassi</div>
+<div class="food-item" data-category="lassi" draggable="true">Mango Lassi</div>
+<div class="food-item" data-category="fruit" draggable="true">Cut Watermelon</div>
+<div class="food-item" data-category="fruit" draggable="true">Banana</div>
+<div class="food-item" data-category="fruit" draggable="true">Mix Cut Fruit</div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Calendar -->
+<div class="calendar">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="editable" contenteditable="true">08/05/2024</th>
+                    <th class="editable" contenteditable="true">08/06/2024</th>
+                    <th class="editable" contenteditable="true">08/07/2024</th>
+                    <th class="editable" contenteditable="true">08/08/2024</th>
+                    <th class="editable" contenteditable="true">08/09/2024</th>
+                </tr>
+                <tr>
+                    <tr>
+                        <th>Meal</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Breakfast</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Dry Veg</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Wet Veg</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Dal</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Rice</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Chicken</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Salad</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Chapati</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Curd</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Papad</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Fruit</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Sweet</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <!-- Fasting Lunch Header -->
+                    <tr>
+                        <td colspan="6" style="font-weight: bold;">Fasting Lunch</td>
+                    </tr>
+                    <tr>
+                        <td>Beverage</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Fruits</td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                    <tr>
+                        <td>Mains</td>
+                       
+
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                        <td class="drop-zone"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Toggle the visibility of food items when category header is clicked
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const foodItems = header.nextElementSibling;
+                foodItems.style.display = foodItems.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Drag and drop functionality
+        const foodItems = document.querySelectorAll('.food-item');
+        const dropZones = document.querySelectorAll('.drop-zone');
+
+        foodItems.forEach(item => {
+            item.addEventListener('dragstart', dragStart);
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', dragOver);
+            zone.addEventListener('drop', dropItem);
+        });
+
+        function dragStart(e) {
+            e.dataTransfer.setData('text', e.target.innerText);
+            e.dataTransfer.setData('category', e.target.dataset.category);
+            e.target.classList.add('dragging');
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function dropItem(e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            const category = e.dataTransfer.getData('category');
+            const foodItem = document.querySelector(`.food-item.dragging`);
+
+            // Check if there's already an item in the drop zone
+            const existingItem = e.target.innerText;
+            if (existingItem && existingItem.trim() && !e.target.classList.contains('drop-zone')) {
+                // Find the existing item in the sidebar and make it visible again in the correct category
+                const categoryContainer = document.getElementById(`${category}-items`);
+                if (categoryContainer) {
+                    const newItem = document.createElement('div');
+                    newItem.classList.add('food-item');
+                    newItem.setAttribute('data-category', category);
+                    newItem.setAttribute('draggable', 'true');
+                    newItem.innerText = existingItem.trim();
+                    categoryContainer.appendChild(newItem);
+
+                    // Reattach drag events
+                    newItem.addEventListener('dragstart', dragStart);
+                }
+            }
+
+            // Update the cell with the new food item
+            e.target.innerHTML = data + '<button class="delete-btn">&times;</button>';
+
+            // Hide the dropped item from the left menu
+            foodItem.style.display = 'none';
+            foodItem.classList.remove('dragging');
+
+            // Add delete functionality
+            e.target.querySelector('.delete-btn').addEventListener('click', function() {
+                e.target.innerHTML = ''; // Clear the cell
+                // Show the food item back in the original list
+                foodItem.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>
