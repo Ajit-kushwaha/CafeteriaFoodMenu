@@ -6,83 +6,146 @@
     <title>Food Menu Scheduler</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header-title {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .download-btn {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #4CAF50;
+            color: #ffffff;
         }
         .container {
             display: flex;
-            width: 100%;
+            height: calc(100vh - 70px);
         }
         .sidebar {
-            width: 25%;
-            background-color: #f7f7f7;
+            width: 30%;
+            background-color: #ffffff;
             padding: 20px;
             overflow-y: auto;
-            height: 100vh;
-            border-right: 1px solid #ccc;
+            border-right: 1px solid #ddd;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
         }
         .category {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .category-header {
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
             cursor: pointer;
-            margin-bottom: 5px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
         }
         .food-items {
             display: none;
-            margin-left: 20px;
+            margin-left: 15px;
         }
         .food-item {
             margin: 5px 0;
             cursor: move;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .calendar {
-            width: 75%;
+            width: 70%;
             padding: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        table, th, td {
-            border: 1px solid #ccc;
+        th, td {
+            border: 1px solid #ddd;
             text-align: center;
-            padding: 10px;
-            position: relative;
+            padding: 12px;
         }
         th {
-            background-color: #f0f0f0;
+            background-color: #f1f1f1;
+            font-weight: 600;
+        }
+        td {
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+        .drop-zone {
+            position: relative;
         }
         .delete-btn {
             position: absolute;
-            top: 2px;
-            right: 2px;
+            top: 5px;
+            right: 5px;
             cursor: pointer;
-            background-color: red;
+            background-color: #ff4d4d;
             color: white;
             border: none;
             border-radius: 50%;
             width: 20px;
             height: 20px;
             display: none;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
         }
-        td:hover .delete-btn {
+        .drop-zone:hover .delete-btn {
             display: block;
         }
+        .editable {
+            background-color: #e6ffe6;
+        }
+#search-box {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
     </style>
 </head>
 <body>
+    <div class="header">
+        <div class="header-title">Clariant Menu</div>
+        <button class="download-btn" onclick="downloadExcel()">Download Menu</button>
+    </div>
+
     <div class="container">
         <!-- Left Sidebar -->
         <div class="sidebar">
-                        <div class="category">
+ <input type="text" id="search-box" placeholder="Search food items..." style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px;">
+            <!-- Category Sections -->
+            <!-- Breakfast -->
+            <div class="category">
                 <div class="category-header">Breakfast</div>
                 <div class="food-items" id="breakfast-items">
                     <div class="food-item" data-category="breakfast" draggable="true">Misal Pav</div>
@@ -821,10 +884,10 @@
             </div>
         </div>
 
-        <!-- Right Calendar -->
-<div class="calendar">
-        <table>
-            <thead>
+   <!-- Right Calendar -->
+        <div class="calendar">
+            <table id="menu-table">
+                <thead>
                 <tr>
                     <th></th>
                     <th class="editable" contenteditable="true">08/05/2024</th>
@@ -975,7 +1038,9 @@
         </div>
     </div>
 
-    <script>
+    <!-- Include the xlsx library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>
         // Toggle the visibility of food items when category header is clicked
         document.querySelectorAll('.category-header').forEach(header => {
             header.addEventListener('click', () => {
@@ -1011,7 +1076,7 @@
             e.preventDefault();
             const data = e.dataTransfer.getData('text');
             const category = e.dataTransfer.getData('category');
-            const foodItem = document.querySelector(`.food-item.dragging`);
+            const foodItem = document.querySelector('.food-item.dragging');
 
             // Check if there's already an item in the drop zone
             const existingItem = e.target.innerText;
@@ -1045,6 +1110,55 @@
                 foodItem.style.display = 'block';
             });
         }
+
+        function downloadExcel() {
+            // Remove delete buttons before generating Excel
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => btn.remove());
+
+            // Create a new workbook and worksheet
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.table_to_sheet(document.getElementById('menu-table'));
+
+            // Add worksheet to workbook
+            XLSX.utils.book_append_sheet(wb, ws, 'Menu');
+
+            // Generate Excel file
+            XLSX.writeFile(wb, 'Menu.xlsx');
+        }
+    // Function to filter food items based on the search query
+    function filterFoodItems() {
+        const query = document.getElementById('search-box').value.toLowerCase();
+        const categories = document.querySelectorAll('.category');
+
+        categories.forEach(category => {
+            const foodItems = category.querySelectorAll('.food-item');
+            let hasVisibleItems = false;
+
+            foodItems.forEach(item => {
+                if (item.textContent.toLowerCase().includes(query)) {
+                    item.style.display = 'block';
+                    hasVisibleItems = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Show or hide the category header based on the visibility of food items
+            const categoryHeader = category.querySelector('.category-header');
+            if (hasVisibleItems) {
+                categoryHeader.style.display = 'block';
+                category.querySelector('.food-items').style.display = 'block';
+            } else {
+                categoryHeader.style.display = 'none';
+                category.querySelector('.food-items').style.display = 'none';
+            }
+        });
+    }
+
+    // Add event listener to the search box
+    document.getElementById('search-box').addEventListener('input', filterFoodItems);
+
     </script>
 </body>
 </html>
