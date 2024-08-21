@@ -158,6 +158,10 @@
             .calendar {
                 width: 100%;
             }
+.drop-zone.drag-over {
+    border: 2px dashed #00f; /* Highlight color */
+}
+
         }
     </style>
 </head>
@@ -649,6 +653,74 @@
 
     // Add event listener to the search box
     document.getElementById('search-box').addEventListener('input', filterFoodItems);
+
+
+	document.addEventListener('DOMContentLoaded', () => {
+    const calendar = document.querySelector('.calendar');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    let scrollInterval;
+
+    function startScrolling(direction) {
+        clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            if (direction === 'up') {
+                calendar.scrollBy(0, -10); // Scroll up
+            } else if (direction === 'down') {
+                calendar.scrollBy(0, 10); // Scroll down
+            } else if (direction === 'left') {
+                calendar.scrollBy(-10, 0); // Scroll left
+            } else if (direction === 'right') {
+                calendar.scrollBy(10, 0); // Scroll right
+            }
+        }, 20); // Adjust scroll speed as needed
+    }
+
+    function stopScrolling() {
+        clearInterval(scrollInterval);
+    }
+
+    document.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        const rect = calendar.getBoundingClientRect();
+        const offset = 10; // Distance from edges to start scrolling
+
+        if (event.clientY < rect.top + offset) {
+            startScrolling('up');
+        } else if (event.clientY > rect.bottom - offset) {
+            startScrolling('down');
+        } else {
+            stopScrolling();
+        }
+
+        if (event.clientX < rect.left + offset) {
+            startScrolling('left');
+        } else if (event.clientX > rect.right - offset) {
+            startScrolling('right');
+        } else {
+            stopScrolling();
+        }
+    });
+
+    document.addEventListener('drop', (event) => {
+        stopScrolling();
+    });
+});
+dropZones.forEach(zone => {
+    zone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        zone.classList.add('drag-over');
+    });
+
+    zone.addEventListener('dragleave', () => {
+        zone.classList.remove('drag-over');
+    });
+
+    zone.addEventListener('drop', () => {
+        zone.classList.remove('drag-over');
+    });
+});
+
 
     </script>
 </body>
